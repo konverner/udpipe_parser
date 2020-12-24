@@ -7,7 +7,7 @@ PREDICATE expresses action or property of the subject
 
 attributes:
 
-``
+```
 
 'pos' : Part of speech
 
@@ -23,7 +23,7 @@ attributes:
 
 'form': word form of the predicate 
 
-``
+```
 
 SUBJECT -  the person or thing performing the action expressed by predicate
 
