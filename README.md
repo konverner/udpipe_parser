@@ -28,7 +28,7 @@ attributes:
 SUBJECT -  the person or thing performing the action expressed by predicate
 
 attributes:
-``
+```
 'pos' : Part of speech
 
 'polarity' : Affirmative/negative
@@ -42,12 +42,12 @@ attributes:
 'prep': Preposition with it
 
 'dets': Determiner
-``
+```
 
 OBJECT -  the person or thing that receives the action expressed by predicate
 
 attributes:
-``
+```
 'pos' : Part of speech
 
 'polarity' : Affirmative/negative
@@ -61,4 +61,4 @@ attributes:
 'prep': Preposition with it
 
 'dets': Determiner
-``
+```
