@@ -10,11 +10,17 @@ attributes:
 ``
 
 'pos' : Part of speech
+
 'polarity': Affirmative/negative
+
 'numb': Number
+
 'tense': Tense
+
 'voice': Active/Passive
+
 'aspect': Imperfective/perfective
+
 'form': word form of the predicate 
 
 ``
@@ -24,11 +30,17 @@ SUBJECT -  the person or thing performing the action expressed by predicate
 attributes:
 ``
 'pos' : Part of speech
+
 'polarity' : Affirmative/negative
+
 'case': Case
+
 'numb': Number
+
 'form': Word form of the subject
+
 'prep': Preposition with it
+
 'dets': Determiner
 ``
 
@@ -37,10 +49,16 @@ OBJECT -  the person or thing that receives the action expressed by predicate
 attributes:
 ``
 'pos' : Part of speech
+
 'polarity' : Affirmative/negative
+
 'case': Case
+
 'numb': Number
+
 'form': Word form of the subject
+
 'prep': Preposition with it
+
 'dets': Determiner
 ``
