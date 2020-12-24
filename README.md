@@ -6,6 +6,9 @@ represented in four items and its attributes.
 PREDICATE expresses action or property of the subject
 
 attributes:
+
+``
+
 'pos' : Part of speech
 'polarity': Affirmative/negative
 'numb': Number
@@ -14,9 +17,12 @@ attributes:
 'aspect': Imperfective/perfective
 'form': word form of the predicate 
 
+``
+
 SUBJECT -  the person or thing performing the action expressed by predicate
 
 attributes:
+``
 'pos' : Part of speech
 'polarity' : Affirmative/negative
 'case': Case
@@ -24,10 +30,12 @@ attributes:
 'form': Word form of the subject
 'prep': Preposition with it
 'dets': Determiner
+``
 
 OBJECT -  the person or thing that receives the action expressed by predicate
 
 attributes:
+``
 'pos' : Part of speech
 'polarity' : Affirmative/negative
 'case': Case
@@ -35,3 +43,4 @@ attributes:
 'form': Word form of the subject
 'prep': Preposition with it
 'dets': Determiner
+``
