@@ -7,20 +7,18 @@ import time
 import re
 import requests
 import json
-import pymorphy2
+import udpipe_analyzer.text_preprocessor
 import nltk
-import text_preprocessor
 nltk.download('punkt')
 from nltk.tokenize import word_tokenize
 from morpholog import Morpholog
-from text_preprocessor import TextPreProcessor
+from udpipe_analyzer.text_preprocessor import TextPreProcessor
 from conllu import parse_tree
 
 
 obj_preps = ['о','к','об','на','про','в','во','с', 'по','насчет', 'относительно','за','из','у','для']
 preps = ['о','к','об','на','про','в','во','с', 'по','насчет', 'относительно','за','из','у','для','при','по','перед','после']
 dets = ['какой то','какой-то','какой','тот','этот','это','такой','что за','что','сколько']
-
 
 ########### UTILITY FUNCTIONS #################
 
@@ -217,10 +215,10 @@ class Analyzer:
     list of words/phrases that should be treated as proper nouns
 
   '''
-  def __init__(self, propn=text_preprocessor.replace_words):
+  def __init__(self, propn_nouns={}):
     self.morph =  Morpholog()
-    self.preprocessor = TextPreProcessor()
-    self.propn = propn
+    self.preprocessor = TextPreProcessor(replace_words=propn_nouns)
+    self.propn = propn_nouns
     self.logging = False
 
 
