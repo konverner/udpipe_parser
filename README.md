@@ -1,3 +1,5 @@
+[![PyPI version](https://badge.fury.io/py/udpipe-analyzer.svg)](https://badge.fury.io/py/udpipe-analyzer)
+
 # Udpipe Analyzer
 
 There is a great models for syntax analysis of natural language data. This analyzer takes sentence in russian and does syntax analysis using [udpipe model](https://github.com/ufal/udpipe) and returns a structer that is easy-to-use in
