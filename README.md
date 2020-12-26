@@ -87,10 +87,27 @@ attributes:
 
 Instance of this class perfomes analysis of text data. It takes a text, makes preprocessing, builds conllu-trees, solves anaphora (if needed) and parses trees.
 The result is a list of Expression instances which represent trees/subtrees. Analyzer class can take dict as a parameter, it is a words or expressions that should be 
-treated as proper names (hence, they can be subjects or objects). In order to provide more stable perfomence it is advaisable to fill this list with out-of-dictionary words,
-such as abbreviations, jargon words, slang etc.
+treated as proper names (hence, they can be subjects or objects). In order to provide more stable F it is advisable to fill this list with out-of-dictionary words,
+such as acronyms, jargon words, slang etc.
 
 ```
-my_propn_nouns = {"рувд" : "'рувд'", "локалка" : "'локалка'"} 
+
+my_propn_nouns = ["рувд","мгу","ростех","роснефть"]
 A = udpipe_analyzer.Analyzer(propn_nouns=my_propn_nouns)
+
+```
+
+Also, one can use abbreviations dictionary to convert abbreviations into normal word forms
+
+```
+abbrev_dict = {'абс.' : 'абсолютный', 'град.':'градус'}
+A = udpipe_analyzer.Analyzer(abbrev_dict=abbrev_dict)
+exps = A.run('какое абс. значение в град. Цельсия?')
+print(exps[0])
+
+subj : значение абсолютный в градус цельсий, 
+pred : быть, 
+obj : 
+params :
+
 ```
