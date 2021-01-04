@@ -68,7 +68,7 @@ attributes:
 
 'pos' : Part of speech
 
-'polarity': Affirmative/negative
+'polarity': Affirmative/Negative
 
 'numb': Number
 
@@ -85,6 +85,8 @@ attributes:
 'prep': Preposition with it
 
 'dets': Determiner
+
+'modality' : Modal Verb
 
 ```
 
