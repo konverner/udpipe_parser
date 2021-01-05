@@ -100,7 +100,7 @@ such as acronyms, jargon words, slang etc.
 
 ```
 
-my_propn_nouns = ["рувд","мгу","ростех","роснефть"]
+my_propn_nouns = ["рувд","мгу","ростех","роснефть","вычи"]
 P = udpipe_parser.UDPipe_Parser(propn_nouns=my_propn_nouns)
 
 ```
