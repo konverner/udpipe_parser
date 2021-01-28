@@ -1,3 +1,3 @@
 from text_preprocessor import TextPreProcessor
-from parser import Expression
-from parser import UDPipeParser
+from udpipe_parser import Expression
+from udpipe_parser import UDPipeParser
