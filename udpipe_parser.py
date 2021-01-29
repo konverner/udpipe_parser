@@ -386,6 +386,17 @@ class UDPipeParser:
                     current.token['lemma'] = curr_child.token['lemma']
                     visited.append(curr_child.token['id'])
                     break
+            # PREDICATE NODE DOES NOT FOUND, SO MAKE DUMMY NODE WITH PREDICATE
+            new_root = copy.deepcopy(current)
+            current.children = []
+            current.token['deprel'] = 'nsubj'
+            current.token['id'] = 21
+            new_root.token['form'] = 'быть'
+            new_root.token['lemma'] = 'быть'
+            new_root.token['upostag'] = 'VERB'
+            new_root.children.append(current)
+            current = new_root
+
         # traverse children
         for j in range(len(current.children)):
             curr_child = current.children[j]
@@ -398,8 +409,7 @@ class UDPipeParser:
                 result.insert(0, self.traverse_tree(curr_child, expression=sub_exp, result=[])[0])
 
             # SUBJECT OR OBJECT
-            if ((is_a_tag(curr_child, 'PUNCT') == False and 'advmod' not in curr_child.token['deprel']) and (
-                    one_of_these(curr_child, ['NUM', 'NOUN', 'X', 'ADJ', 'PRON', 'PROPN']))):
+            if 'advmod' not in curr_child.token['deprel'] and one_of_these(curr_child, ['NUM', 'NOUN', 'X', 'ADJ', 'PRON', 'PROPN']):
                 # FIRSTLY, WE ARE LOORING FOR SUBJECT
                 if 'nsubj' in curr_child.token['deprel'] and not curr_child.token['id'] in visited:
                     result_exp.insert('subj', *self._parse_noun_phrase(curr_child, current))
@@ -580,11 +590,11 @@ class UDPipeParser:
         start_time = time.time()
         self.logging = logging
 
-        sent = self.cann_form(text)
-        sent = self.preprocessor.run(sent)
+        text = self.cann_form(text)
+        text = self.preprocessor.run(text)
         if logging:
-            print("sent:", sent)
-        result = self.parse(sent.strip(' '), solve_anaphora=solve_anaphora)
+            print("sent:", text)
+        result = self.parse(text.strip(' '), solve_anaphora=solve_anaphora)
 
         end_time = time.time()
 
