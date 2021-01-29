@@ -1,4 +1,4 @@
-[![PyPI version](https://badge.fury.io/py/udpipe-analyzer.svg)](https://badge.fury.io/py/udpipe-analyzer)
+[![PyPI version](https://badge.fury.io/py/udpipe-parser.svg)](https://pypi.org/project/udpipe-parser/)
 
 # UDPipe Parser
 
