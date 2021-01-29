@@ -33,7 +33,7 @@ exps[0].obj
 
 To evaluate accuracy of the parser a dataset was collected from questions and annotated in terms of predicates, subjects, objects, parameters. Examples:
 
-![picture]https://sun9-37.userapi.com/impg/i2PkfBL8xkuHSYCpDpSSXMXCPhm4ApZNTwqWJg/NuXV83j1Ci0.jpg?size=873x244&quality=96&proxy=1&sign=3b843cfb9b5f1769d9795b471b3f596f&type=album)
+![picture](https://sun9-37.userapi.com/impg/i2PkfBL8xkuHSYCpDpSSXMXCPhm4ApZNTwqWJg/NuXV83j1Ci0.jpg?size=873x244&quality=96&proxy=1&sign=3b843cfb9b5f1769d9795b471b3f596f&type=album)
 
 
 # Documentation
