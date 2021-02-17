@@ -2,6 +2,7 @@ import re
 
 from difflib import SequenceMatcher
 from dicts import *
+#from .dicts import *
 from morpholog import Morpholog
 
 morph = Morpholog()
@@ -103,6 +104,9 @@ def is_trans(node):
             return False
 
     return True
+
+def is_modal_verb(node):
+    return node.token['lemma'] in modal_verbs
 
 
 # make dict for a word from udpipe node

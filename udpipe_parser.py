@@ -10,8 +10,10 @@ import copy
 import json
 from nltk.tokenize import word_tokenize
 from text_preprocessor import TextPreProcessor
+#from .text_preprocessor import TextPreProcessor
 from conllu import parse_tree
 from utilities import *
+#from .utilities import *
 
 
 #####################################################
@@ -296,7 +298,11 @@ class UDPipeParser:
             if is_a_tag(current.children[k], 'ADJ'):
                 result += ' ' + current.children[k].token[tag]
                 for i in range(len(current.children[k].children)):
-                    # PARTICLE E.G. 'именно книга'
+
+                    # E.G. 'физико-математический', where 'физико' is compound
+                    if one_of_these(current.children[k].children[i], ['compound']):
+                        result = ' '.join(result.split(' ' )[:-1]) + ' ' +current.children[k].children[i].token['form'] + '-' + result.split(' ' )[-1]
+
                     if one_of_these(current.children[k].children[i], ['PART', 'ADV']):
                         result += ' {' + self._parse_noun_phrase(current.children[k].children[i], None)[0] + '}'
 
@@ -377,25 +383,27 @@ class UDPipeParser:
         current = tree
         visited = [current.token['id']]
         # CHECK IF CURRENT IS PREDICATE NODE
-        if not is_a_tag(current, 'VERB') and not is_a_tag(current, 'AUX') \
-                and not is_a_tag(current, 'ADJ') and not is_a_tag(current, 'ADV'):
+        if not is_a_tag(current, 'VERB') and not is_a_tag(current, 'AUX') and not is_modal_verb(current):
+            found = False
             for j in range(len(current.children)):
-                curr_child = current.children[j]
-                if is_a_tag(curr_child, 'VERB') or is_a_tag(curr_child, 'AUX') or is_a_tag(curr_child, 'ADV'):
-                    current.token['form'] = curr_child.token['form']
-                    current.token['lemma'] = curr_child.token['lemma']
-                    visited.append(curr_child.token['id'])
+                if is_a_tag(current.children[j], 'VERB') or is_a_tag(current.children[j], 'AUX'):
+                    buffer = current.token
+                    current.token = current.children[j].token
+                    current.children[j].token = buffer
+                    #visited.append(current.children[j].token['id'])
+                    found = True
                     break
-            # PREDICATE NODE DOES NOT FOUND, SO MAKE DUMMY NODE WITH PREDICATE
-            new_root = copy.deepcopy(current)
-            current.children = []
-            current.token['deprel'] = 'nsubj'
-            current.token['id'] = 21
-            new_root.token['form'] = 'быть'
-            new_root.token['lemma'] = 'быть'
-            new_root.token['upostag'] = 'VERB'
-            new_root.children.append(current)
-            current = new_root
+            # PREDICATE NODE DOES NOT FOUND, SO MAKE A DUMMY NODE WITH PREDICATE
+            if not found:
+                new_root = copy.deepcopy(current)
+                current.children = []
+                current.token['deprel'] = 'nsubj'
+                current.token['id'] = 21
+                new_root.token['form'] = 'быть'
+                new_root.token['lemma'] = 'быть'
+                new_root.token['upostag'] = 'VERB'
+                new_root.children.append(current)
+                current = new_root
 
         # traverse children
         for j in range(len(current.children)):
@@ -557,24 +565,24 @@ class UDPipeParser:
 
     def parse(self, text, solve_anaphora=False):
         """
-    params
-    ---
+        params
+        ---
 
-    text : str
-      text to parse
+        text : str
+          text to parse
 
-    solve_anaphora : bool
-      if true then anaphora is to be solved
+        solve_anaphora : bool
+          if true then anaphora is to be solved
 
-    return
-    ---
-    exp : analyzer.Expression object
-    """
+        return
+        ---
+        exp : analyzer.Expression object
+        """
         request = json.loads(requests.get(
             'http://lindat.mff.cuni.cz/services/udpipe/api/process?model=russian-syntagrus-ud-2.6-200830&tokenizer&tagger&parser&data=' + text).text)
         trees = parse_tree(request['result'])
         if solve_anaphora:
-            if len(trees) > 1 and self.pronouns_in(trees):
+            if len(trees) > 1 and pronouns_in(trees):
                 trees = self.solve_anaphora(trees)
         result = []
         for tree in trees:
@@ -602,3 +610,5 @@ class UDPipeParser:
             print('[UDPipeParser] elapsed time:', end_time - start_time)
 
         return result
+
+
