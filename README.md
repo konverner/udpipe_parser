@@ -9,7 +9,7 @@ common NLP/NLU tasks.
 
 ```
 import udpipe_parser
-P = udpipe_parser.UDPipe_Parser()
+P = udpipe_parser.UDPipeParser()
 exps = P.run("Я хочу материальную помощь! Как её получить?",solve_anaphora=True,logging=False)
 for exp in exps:
   print(exp,'\n')
